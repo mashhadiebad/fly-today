@@ -1,8 +1,9 @@
 import React from 'react'
+import style from './SearchSection.module.scss'
 
 const SearchSection = () => {
   return (
-    <div>SearchSection</div>
+    <div className={style.container}>SearchSection</div>
   )
 }
 
