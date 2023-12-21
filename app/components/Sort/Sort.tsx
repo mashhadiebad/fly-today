@@ -49,12 +49,13 @@ const Sort = () => {
       )}
       <div className={style.desktopDesign__sortContainer}>
         <div className={style.desktopDesign__sortTitle}>مرتب سازی:</div>
-      <select className={`select select-bordered w-full max-w-xs ${style.desktopDesign__sortDropdown}`}>
-        <option selected>قیمت</option>
-        <option>زمان پرواز</option>
-      </select>
+        <select
+          className={`select select-bordered w-full max-w-xs ${style.desktopDesign__sortDropdown}`}
+        >
+          <option>قیمت</option>
+          <option>زمان پرواز</option>
+        </select>
       </div>
-
     </div>
   );
 };

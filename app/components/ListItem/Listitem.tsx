@@ -6,6 +6,7 @@ import { useState } from "react";
 import { IoMdClose } from "react-icons/io";
 import { PiAirplaneTakeoffLight } from "react-icons/pi";
 import { GrDocumentVerified } from "react-icons/gr";
+import { IoMdArrowDropdown } from "react-icons/io";
 
 const Listitem = () => {
   const [isFlightDetailsVisible, setIsFlightDetailsVisible] =
@@ -483,7 +484,11 @@ const Listitem = () => {
           style={{ borderTop: "1px solid #eeeeee" }}
         >
           <div className={style.desktopDesign__flightSummery}>
-            <div className={style.desktopDesign__flightSummeryItem}>چارتر</div>
+            <div
+              className={`${style.desktopDesign__flightSummeryItem} ${style.desktopDesign__flightCharter}`}
+            >
+              چارتر
+            </div>
             <div className="flex items-center">
               <div className={style.desktopDesign__flightSummeryItem}>
                 اکونومی
@@ -496,30 +501,348 @@ const Listitem = () => {
               <div className={style.desktopDesign__flightSummeryItem}>
                 شماره پرواز : 2345
               </div>
+              <span className="px-2 pb-1">.</span>
+              <div className={style.desktopDesign__flightSummeryItem}>
+                تامین‌کننده: پرایس لاین
+              </div>
             </div>
           </div>
-          <div className="">more</div>
+          <div
+            className={style.desktopDesign__moreDetails}
+            onClick={() => setIsFlightDetailsVisible(!isFlightDetailsVisible)}
+          >
+            <div className="ml-1">جزئیات بیشتر</div>
+            <IoMdArrowDropdown
+              style={
+                isFlightDetailsVisible ? { transform: "rotate(180deg)" } : null
+              }
+            />
+          </div>
         </div>
-        {/* {isFlightDetailsVisible && ()} */}
-        <div className="">
-          <div className="">tag</div>
-          <div className="">title</div>
-          <div className="">
-            <div className="">logo</div>
-            <div className="">path</div>
-            <div className="">
-              <div className="">boarding</div>
-              <div className="">detail</div>
-              <div className="">boarding</div>
+        {isFlightDetailsVisible && (
+          <div>
+            <div className={style.desktopDesign__flightDetailModalMain}>
+              <div
+                className={
+                  style.desktopDesign__flightDetailModalMainTagContainer
+                }
+              >
+                <div
+                  className={`${style.desktopDesign__flightDetailModalMainTag} ${style.activeTag}`}
+                >
+                  <PiAirplaneTakeoffLight />
+                  <div className="pr-2">جزئیات پرواز</div>
+                </div>
+                <div className={style.desktopDesign__flightDetailModalMainTag}>
+                  <GrDocumentVerified />
+                  <div className="pr-2">قوانین و شرایط</div>
+                </div>
+              </div>
+              <div
+                className={style.desktopDesign__flightDetailModalInformation}
+              >
+                <div
+                  className={
+                    style.desktopDesign__flightDetailModalInformationTitle
+                  }
+                >
+                  پرواز رفت تهران - استانبول
+                </div>
+                <div className="flex">
+                  <div
+                    className={
+                      style.desktopDesign__flightDetailModalInformationAirline
+                    }
+                  >
+                    <Image
+                      src="/images/logo.png"
+                      alt="airline Logo"
+                      height={40}
+                      width={40}
+                    />
+                    <p className="py-2">ماهان</p>
+                  </div>
+                  <div
+                    className={
+                      style.desktopDesign__flightDetailModalInformationPath
+                    }
+                  >
+                    <div
+                      className={
+                        style.desktopDesign__flightDetailModalInformationCircle
+                      }
+                    ></div>
+                    <div
+                      className={
+                        style.desktopDesign__flightDetailModalInformationDote
+                      }
+                    ></div>
+                    <div
+                      className={
+                        style.desktopDesign__flightDetailModalInformationCircle
+                      }
+                    ></div>
+                  </div>
+                  <div>
+                    <div
+                      className={style.desktopDesign__flightDetailModalBoarding}
+                    >
+                      <div className="flex ml-8">
+                        <div
+                          className={
+                            style.desktopDesign__flightDetailModalBoardingTime
+                          }
+                        >
+                          12:45
+                        </div>
+                        <div
+                          className={
+                            style.desktopDesign__flightDetailModalBoardingCity
+                          }
+                        >
+                          تهران
+                        </div>
+                        <div
+                          className={
+                            style.desktopDesign__flightDetailModalBoardingCityCode
+                          }
+                        >
+                          (THR)
+                        </div>
+                      </div>
+                      <div className="flex ml-8">
+                        <div
+                          className={
+                            style.desktopDesign__flightDetailModalBoardingDate
+                          }
+                        >
+                          12 اردیبهشت 1399
+                        </div>
+                        <div
+                          className={
+                            style.desktopDesign__flightDetailModalBoardingDateEn
+                          }
+                        >
+                          (07 Apr)
+                        </div>
+                      </div>
+                      <div
+                        className={
+                          style.desktopDesign__flightDetailModalBoardingAirport
+                        }
+                      >
+                        Imam Khomeini Intl
+                      </div>
+                    </div>
+                    <div className="my-6 flex">
+                      <div>
+                        <div className="flex mb-2">
+                          <div
+                            className={style.desktopDesign__flightDetailsTitle}
+                          >
+                            مدت پرواز
+                          </div>
+                          <div
+                            className={style.desktopDesign__flightDetailsValue}
+                          ></div>
+                        </div>
+                        <div className="flex mb-2">
+                          <div
+                            className={style.desktopDesign__flightDetailsTitle}
+                          >
+                            نوع هواپیما
+                          </div>
+                          <div
+                            className={style.desktopDesign__flightDetailsValue}
+                          ></div>
+                        </div>
+                        <div className="flex mb-2">
+                          <div
+                            className={style.desktopDesign__flightDetailsTitle}
+                          >
+                            کلاس پرواز
+                          </div>
+                          <div
+                            className={style.desktopDesign__flightDetailsValue}
+                          ></div>
+                        </div>
+                      </div>
+                      <div>
+                        <div className="flex mb-2">
+                          <div
+                            className={style.desktopDesign__flightDetailsTitle}
+                          >
+                            نوع پرواز
+                          </div>
+                          <div
+                            className={style.desktopDesign__flightDetailsValue}
+                          ></div>
+                        </div>
+                        <div className="flex mb-2">
+                          <div
+                            className={style.desktopDesign__flightDetailsTitle}
+                          >
+                            بار مجاز
+                          </div>
+                          <div
+                            className={style.desktopDesign__flightDetailsValue}
+                          ></div>
+                        </div>
+                        <div className="flex mb-2">
+                          <div
+                            className={style.desktopDesign__flightDetailsTitle}
+                          >
+                            کلاس نرخی
+                          </div>
+                          <div
+                            className={style.desktopDesign__flightDetailsValue}
+                          ></div>
+                        </div>
+                      </div>
+                      <div className="flex">
+                        <div
+                          className={style.desktopDesign__flightDetailsTitle}
+                        >
+                          استرداد
+                        </div>
+                        <div
+                          className={style.desktopDesign__flightDetailsValue}
+                        ></div>
+                      </div>
+                    </div>
+                    <div
+                      className={style.desktopDesign__flightDetailModalBoarding}
+                    >
+                      <div className="flex ml-8">
+                        <div
+                          className={
+                            style.desktopDesign__flightDetailModalBoardingTime
+                          }
+                        >
+                          12:45
+                        </div>
+                        <div
+                          className={
+                            style.desktopDesign__flightDetailModalBoardingCity
+                          }
+                        >
+                          تهران
+                        </div>
+                        <div
+                          className={
+                            style.desktopDesign__flightDetailModalBoardingCityCode
+                          }
+                        >
+                          (THR)
+                        </div>
+                      </div>
+                      <div className="flex ml-8">
+                        <div
+                          className={
+                            style.desktopDesign__flightDetailModalBoardingDate
+                          }
+                        >
+                          12 اردیبهشت 1399
+                        </div>
+                        <div
+                          className={
+                            style.desktopDesign__flightDetailModalBoardingDateEn
+                          }
+                        >
+                          (07 Apr)
+                        </div>
+                      </div>
+                      <div
+                        className={
+                          style.desktopDesign__flightDetailModalBoardingAirport
+                        }
+                      >
+                        Imam Khomeini Intl
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
+            <div className={style.desktopDesign__flightDetailModalPassengers}>
+              <div className={style.desktopDesign__flightDetailModalPassenger}>
+                <div
+                  className={
+                    style.desktopDesign__flightDetailModalPassengerTitle
+                  }
+                >
+                  <div>2</div>
+                  <IoMdClose />
+                  <div>بزرگسال</div>
+                </div>
+                <div
+                  className={
+                    style.desktopDesign__flightDetailModalPassengerValue
+                  }
+                >
+                  <div className="ml-2">۱,۳۷۰,۰۰۰</div>
+                  <div>تومان</div>
+                </div>
+              </div>
+              <div className={style.desktopDesign__flightDetailModalPassenger}>
+                <div
+                  className={
+                    style.desktopDesign__flightDetailModalPassengerTitle
+                  }
+                >
+                  <div>2</div>
+                  <IoMdClose />
+                  <div>کودک</div>
+                </div>
+                <div
+                  className={
+                    style.desktopDesign__flightDetailModalPassengerValue
+                  }
+                >
+                  <div className="ml-2">۱,۳۷۰,۰۰۰</div>
+                  <div>تومان</div>
+                </div>
+              </div>
+              <div className={style.desktopDesign__flightDetailModalPassenger}>
+                <div
+                  className={
+                    style.desktopDesign__flightDetailModalPassengerTitle
+                  }
+                >
+                  <div>1</div>
+                  <IoMdClose />
+                  <div>نوزاد</div>
+                </div>
+                <div
+                  className={
+                    style.desktopDesign__flightDetailModalPassengerValue
+                  }
+                >
+                  <div className="ml-2">۱,۳۷۰,۰۰۰</div>
+                  <div>تومان</div>
+                </div>
+              </div>
+              <div className={style.desktopDesign__flightDetailModalPassenger}>
+                <div
+                  className={
+                    style.desktopDesign__flightDetailModalPassengerSumTitle
+                  }
+                >
+                  <div>مجموع:</div>
+                </div>
+                <div
+                  className={
+                    style.desktopDesign__flightDetailModalPassengerSumValue
+                  }
+                >
+                  <div className="ml-2">۱,۳۷۰,۰۰۰</div>
+                  <div>تومان</div>
+                </div>
+              </div>
+            </div>
+            <div className="h-4"></div>
           </div>
-          <div className="">
-            <div className="">child</div>
-            <div className="">newborn</div>
-            <div className="">adult</div>
-            <div className="">sum</div>
-          </div>
-        </div>
+        )}
       </div>
     </div>
   );
