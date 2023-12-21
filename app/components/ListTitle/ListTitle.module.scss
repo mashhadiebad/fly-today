@@ -1,0 +1,24 @@
+@import '../../styles/variables.module.scss';
+
+.container{
+    text-align: right;
+    direction: rtl;
+    margin-bottom: 24px;
+
+    &__title{
+        font-family: IRANSansBold;
+        font-size: 20px;
+        line-height: 2;
+        color: $greyish-brown;
+    }
+
+    &__description{
+        display: flex;
+        font-family: IRANSans;
+        font-size: 14px;
+        line-height: 2;
+        color: $greyish-brown;
+    }
+}
+
+
