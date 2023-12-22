@@ -7,8 +7,104 @@ import { IoMdClose } from "react-icons/io";
 import { PiAirplaneTakeoffLight } from "react-icons/pi";
 import { GrDocumentVerified } from "react-icons/gr";
 import { IoMdArrowDropdown } from "react-icons/io";
+import { iataConvertor } from "@/app/utils/globalFunctions";
+import { airlineIataConvertor } from "@/app/utils/globalFunctions";
+import { getTime } from "@/app/utils/globalFunctions";
+import { readableNumber } from "@/app/utils/globalFunctions";
+import { getPersianTime } from "@/app/utils/globalFunctions";
 
-const Listitem = () => {
+interface Props {
+  flightData: {
+    passportMandatoryType: string;
+    domesticCountryCode: any;
+    isPassportMandatory: boolean;
+    isDestinationAddressMandatory: boolean;
+    isPassportIssueDateMandatory: boolean;
+    directionInd: number;
+    refundMethod: string;
+    validatingAirlineCode: string;
+    fareSourceCode: string;
+    hasFareFamilies: boolean;
+    airItineraryPricingInfo: {
+      fareType: string;
+      itinTotalFare: {
+        totalService: number;
+        totalFare: number;
+        grandTotalWithoutDiscount: number;
+        discountAmount: any;
+        totalVat: number;
+        totalTax: number;
+        totalServiceTax: number;
+        totalCommission: number;
+      };
+      ptcFareBreakdown: [
+        {
+          passengerFare: {
+            baseFare: number;
+            totalFare: number;
+            serviceTax: number;
+            taxes: any[];
+            total: number;
+            tax: number;
+            vat: number;
+            baseFareWithMarkup: number;
+            totalFareWithMarkupAndVat: number;
+            commission: number;
+            priceCitizen: number;
+          };
+          passengerTypeQuantity: {
+            passengerType: string;
+            quantity: number;
+          };
+        }
+      ];
+      fareInfoes: any[];
+    };
+    originDestinationOptions: [
+      {
+        journeyDurationPerMinute: number;
+        connectionTimePerMinute: number;
+        flightSegments: [
+          {
+            departureDateTime: string;
+            arrivalDateTime: string;
+            stopQuantity: number;
+            flightNumber: string;
+            resBookDesigCode: string;
+            journeyDuration: string;
+            journeyDurationPerMinute: number;
+            connectionTimePerMinute: number;
+            departureAirportLocationCode: string;
+            arrivalAirportLocationCode: string;
+            marketingAirlineCode: string;
+            cabinClassCode: string;
+            operatingAirline: {
+              code: string;
+              flightNumber: string;
+              equipment: string;
+              equipmentName: any;
+            };
+            seatsRemaining: number;
+            isCharter: boolean;
+            isReturn: boolean;
+            baggage: string;
+            technicalStops: any[];
+          }
+        ];
+      }
+    ];
+    featured: any;
+    bestExperienceIndex: number;
+    isCharter: boolean;
+    isSystem: boolean;
+    isInstance: boolean;
+    isOffer: boolean;
+    isSeatServiceMandatory: boolean;
+    isMealServiceMandatory: boolean;
+  };
+}
+
+const Listitem = ({ flightData }: Props) => {
   const [isFlightDetailsVisible, setIsFlightDetailsVisible] =
     useState<boolean>(false);
   return (
@@ -16,17 +112,29 @@ const Listitem = () => {
       <div className={style.mobileDesign__container}>
         <div className={style.mobileDesign__airline}>
           <Image
-            src="/images/logo.png"
+            src="/images/IranAir.png"
             alt="airlineLogo"
             height={40}
             width={40}
           />
-          <h2 className={style.mobileDesign__AirlineName}>ماهان</h2>
+          <h2 className={style.mobileDesign__AirlineName}>
+            {airlineIataConvertor(flightData.validatingAirlineCode).nameFa}
+          </h2>
         </div>
         <div className={style.mobileDesign__timeContainer}>
-          <div className={style.mobileDesign__time}>17:30</div>
+          <div className={style.mobileDesign__time}>
+            {getTime(
+              flightData.originDestinationOptions[0].flightSegments[0]
+                .departureDateTime
+            )}
+          </div>
           <div className={style.mobileDesign__durationContainer}>
-            <div className={style.mobileDesign__duration}>3ساعت و 45 دقیقه</div>
+            <div className={style.mobileDesign__duration}>
+              {getPersianTime(
+                flightData.originDestinationOptions[0].flightSegments[0]
+                  .journeyDuration
+              )}
+            </div>
             <div className={style.mobileDesign__durationUnderline}>
               <div
                 className={style.mobileDesign__durationCircle}
@@ -39,16 +147,53 @@ const Listitem = () => {
               ></div>
             </div>
           </div>
-          <div className={style.mobileDesign__time}>12:30</div>
+          <div className={style.mobileDesign__time}>
+            {getTime(
+              flightData.originDestinationOptions[0].flightSegments[0]
+                .arrivalDateTime
+            )}
+          </div>
         </div>
         <div className={style.mobileDesign__citiesContainer}>
           <div className={style.mobileDesign__cityContainer}>
-            <div className={style.mobileDesign__cityName}>تهران</div>
-            <div className={style.mobileDesign__cityCode}>(isr)</div>
+            <div className={style.mobileDesign__cityName}>
+              {
+                iataConvertor(
+                  flightData.originDestinationOptions[0].flightSegments[0]
+                    .departureAirportLocationCode
+                ).cityFa
+              }
+            </div>
+            <div className={style.mobileDesign__cityCode}>
+              (
+              {
+                iataConvertor(
+                  flightData.originDestinationOptions[0].flightSegments[0]
+                    .departureAirportLocationCode
+                ).cityId
+              }
+              )
+            </div>
           </div>
           <div className={style.mobileDesign__cityContainer}>
-            <div className={style.mobileDesign__cityName}>تهران</div>
-            <div className={style.mobileDesign__cityCode}>(isr)</div>
+            <div className={style.mobileDesign__cityName}>
+              {
+                iataConvertor(
+                  flightData.originDestinationOptions[0].flightSegments[0]
+                    .arrivalAirportLocationCode
+                ).cityFa
+              }
+            </div>
+            <div className={style.mobileDesign__cityCode}>
+              (
+              {
+                iataConvertor(
+                  flightData.originDestinationOptions[0].flightSegments[0]
+                    .arrivalAirportLocationCode
+                ).cityId
+              }
+              )
+            </div>
           </div>
         </div>
         <div className={style.mobileDesign__flightSummery}>
@@ -57,11 +202,19 @@ const Listitem = () => {
             <div className={style.mobileDesign__flightSummeryItem}>اکونومی</div>
             <span className="px-2 pb-1">.</span>
             <div className={style.mobileDesign__flightSummeryItem}>
-              10 صندلی خالی
+              {
+                flightData.originDestinationOptions[0].flightSegments[0]
+                  .seatsRemaining
+              }{" "}
+              صندلی خالی
             </div>
             <span className="px-2 pb-1">.</span>
             <div className={style.mobileDesign__flightSummeryItem}>
-              شماره پرواز : 2345
+              شماره پرواز :{" "}
+              {
+                flightData.originDestinationOptions[0].flightSegments[0]
+                  .operatingAirline.flightNumber
+              }
             </div>
           </div>
         </div>
@@ -69,7 +222,11 @@ const Listitem = () => {
           <div>
             <div className={style.mobileDesign__priceText}>یک نفر</div>
             <div className="flex items-center pt-1">
-              <div className={style.mobileDesign__price}>1,370,000</div>
+              <div className={style.mobileDesign__price}>
+                {readableNumber(
+                  flightData.airItineraryPricingInfo.itinTotalFare.totalFare
+                )}
+              </div>
               <div className={style.mobileDesign__priceText}>تومان</div>
             </div>
           </div>
@@ -112,7 +269,20 @@ const Listitem = () => {
                     style.mobileDesign__flightDetailModalInformationTitle
                   }
                 >
-                  پرواز رفت تهران - استانبول
+                  پرواز رفت{" "}
+                  {
+                    iataConvertor(
+                      flightData.originDestinationOptions[0].flightSegments[0]
+                        .departureAirportLocationCode
+                    ).cityFa
+                  }{" "}
+                  -{" "}
+                  {
+                    iataConvertor(
+                      flightData.originDestinationOptions[0].flightSegments[0]
+                        .arrivalAirportLocationCode
+                    ).cityFa
+                  }
                 </div>
                 <div className="flex mb-6">
                   <div
@@ -126,7 +296,12 @@ const Listitem = () => {
                       height={40}
                       width={40}
                     />
-                    <p className="py-2">ماهان</p>
+                    <p className="py-2">
+                      {
+                        airlineIataConvertor(flightData.validatingAirlineCode)
+                          .nameFa
+                      }
+                    </p>
                   </div>
                   <div
                     className={
@@ -159,21 +334,38 @@ const Listitem = () => {
                             style.mobileDesign__flightDetailModalBoardingTime
                           }
                         >
-                          12:45
+                          {getTime(
+                            flightData.originDestinationOptions[0]
+                              .flightSegments[0].departureDateTime
+                          )}
                         </div>
                         <div
                           className={
                             style.mobileDesign__flightDetailModalBoardingCity
                           }
                         >
-                          تهران
+                          (
+                          {
+                            iataConvertor(
+                              flightData.originDestinationOptions[0]
+                                .flightSegments[0].departureAirportLocationCode
+                            ).cityFa
+                          }
+                          )
                         </div>
                         <div
                           className={
                             style.mobileDesign__flightDetailModalBoardingCityCode
                           }
                         >
-                          (THR)
+                          (
+                          {
+                            iataConvertor(
+                              flightData.originDestinationOptions[0]
+                                .flightSegments[0].departureAirportLocationCode
+                            ).cityId
+                          }
+                          )
                         </div>
                       </div>
                       <div className="flex mb-2">
@@ -197,7 +389,12 @@ const Listitem = () => {
                           style.mobileDesign__flightDetailModalBoardingAirport
                         }
                       >
-                        Imam Khomeini Intl
+                        {
+                          iataConvertor(
+                            flightData.originDestinationOptions[0]
+                              .flightSegments[0].departureAirportLocationCode
+                          ).name
+                        }
                       </div>
                     </div>
                     <div className="my-8">
@@ -205,49 +402,55 @@ const Listitem = () => {
                         <div className={style.mobileDesign__flightDetailsTitle}>
                           مدت پرواز
                         </div>
-                        <div
-                          className={style.mobileDesign__flightDetailsValue}
-                        ></div>
+                        <div className={style.mobileDesign__flightDetailsValue}>
+                          {getPersianTime(
+                            flightData.originDestinationOptions[0]
+                              .flightSegments[0].journeyDuration
+                          )}
+                        </div>
                       </div>
                       <div className="flex mb-2">
                         <div className={style.mobileDesign__flightDetailsTitle}>
                           نوع هواپیما
                         </div>
-                        <div
-                          className={style.mobileDesign__flightDetailsValue}
-                        ></div>
+                        <div className={style.mobileDesign__flightDetailsValue}>
+                          Airbus A320
+                        </div>
                       </div>
                       <div className="flex mb-2">
                         <div className={style.mobileDesign__flightDetailsTitle}>
                           کلاس پرواز
                         </div>
-                        <div
-                          className={style.mobileDesign__flightDetailsValue}
-                        ></div>
+                        <div className={style.mobileDesign__flightDetailsValue}>
+                          اکونومی
+                        </div>
                       </div>
                       <div className="flex mb-2">
                         <div className={style.mobileDesign__flightDetailsTitle}>
                           نوع پرواز
                         </div>
-                        <div
-                          className={style.mobileDesign__flightDetailsValue}
-                        ></div>
+                        <div className={style.mobileDesign__flightDetailsValue}>
+                          سیستمی
+                        </div>
                       </div>
                       <div className="flex mb-2">
                         <div className={style.mobileDesign__flightDetailsTitle}>
                           بار مجاز
                         </div>
-                        <div
-                          className={style.mobileDesign__flightDetailsValue}
-                        ></div>
+                        <div className={style.mobileDesign__flightDetailsValue}>
+                          {
+                            flightData.originDestinationOptions[0]
+                              .flightSegments[0].baggage
+                          }
+                        </div>
                       </div>
                       <div className="flex mb-2">
                         <div className={style.mobileDesign__flightDetailsTitle}>
                           کلاس نرخی
                         </div>
-                        <div
-                          className={style.mobileDesign__flightDetailsValue}
-                        ></div>
+                        <div className={style.mobileDesign__flightDetailsValue}>
+                          A
+                        </div>
                       </div>
                       <div className="flex">
                         <div className={style.mobileDesign__flightDetailsTitle}>
@@ -255,7 +458,10 @@ const Listitem = () => {
                         </div>
                         <div
                           className={style.mobileDesign__flightDetailsValue}
-                        ></div>
+                          style={{ color: "#ff1d23" }}
+                        >
+                          غیر قابل استرداد
+                        </div>
                       </div>
                     </div>
                     <div
@@ -267,21 +473,38 @@ const Listitem = () => {
                             style.mobileDesign__flightDetailModalBoardingTime
                           }
                         >
-                          12:45
+                          {getTime(
+                            flightData.originDestinationOptions[0]
+                              .flightSegments[0].arrivalDateTime
+                          )}
                         </div>
                         <div
                           className={
                             style.mobileDesign__flightDetailModalBoardingCity
                           }
                         >
-                          تهران
+                          (
+                          {
+                            iataConvertor(
+                              flightData.originDestinationOptions[0]
+                                .flightSegments[0].arrivalAirportLocationCode
+                            ).cityFa
+                          }
+                          )
                         </div>
                         <div
                           className={
                             style.mobileDesign__flightDetailModalBoardingCityCode
                           }
                         >
-                          (THR)
+                          (
+                          {
+                            iataConvertor(
+                              flightData.originDestinationOptions[0]
+                                .flightSegments[0].arrivalAirportLocationCode
+                            ).cityId
+                          }
+                          )
                         </div>
                       </div>
                       <div className="flex mb-2">
@@ -305,7 +528,12 @@ const Listitem = () => {
                           style.mobileDesign__flightDetailModalBoardingAirport
                         }
                       >
-                        Imam Khomeini Intl
+                        {
+                          iataConvertor(
+                            flightData.originDestinationOptions[0]
+                              .flightSegments[0].arrivalAirportLocationCode
+                          ).name
+                        }
                       </div>
                     </div>
                   </div>
@@ -330,7 +558,13 @@ const Listitem = () => {
                         style.mobileDesign__flightDetailModalPassengerValue
                       }
                     >
-                      <div className="ml-2">۱,۳۷۰,۰۰۰</div>
+                      <div className="ml-2">
+                        {" "}
+                        {readableNumber(
+                          flightData.airItineraryPricingInfo.itinTotalFare
+                            .totalFare
+                        )}
+                      </div>
                       <div>تومان</div>
                     </div>
                   </div>
@@ -351,7 +585,12 @@ const Listitem = () => {
                         style.mobileDesign__flightDetailModalPassengerValue
                       }
                     >
-                      <div className="ml-2">۱,۳۷۰,۰۰۰</div>
+                      <div className="ml-2">
+                        {readableNumber(
+                          flightData.airItineraryPricingInfo.itinTotalFare
+                            .totalFare
+                        )}
+                      </div>
                       <div>تومان</div>
                     </div>
                   </div>
@@ -372,7 +611,12 @@ const Listitem = () => {
                         style.mobileDesign__flightDetailModalPassengerValue
                       }
                     >
-                      <div className="ml-2">۱,۳۷۰,۰۰۰</div>
+                      <div className="ml-2">
+                        {readableNumber(
+                          flightData.airItineraryPricingInfo.itinTotalFare
+                            .totalFare
+                        )}
+                      </div>
                       <div>تومان</div>
                     </div>
                   </div>
@@ -391,7 +635,12 @@ const Listitem = () => {
                         style.mobileDesign__flightDetailModalPassengerSumValue
                       }
                     >
-                      <div className="ml-2">۱,۳۷۰,۰۰۰</div>
+                      <div className="ml-2">
+                        {readableNumber(
+                          flightData.airItineraryPricingInfo.itinTotalFare
+                            .totalFare
+                        )}
+                      </div>
                       <div>تومان</div>
                     </div>
                   </div>
@@ -403,7 +652,12 @@ const Listitem = () => {
                 <div>
                   <div className={style.mobileDesign__priceText}>یک نفر</div>
                   <div className="flex items-center">
-                    <div className={style.mobileDesign__price}>1,370,000</div>
+                    <div className={style.mobileDesign__price}>
+                      {readableNumber(
+                        flightData.airItineraryPricingInfo.itinTotalFare
+                          .totalFare
+                      )}
+                    </div>
                     <div className={style.mobileDesign__priceText}>تومان</div>
                   </div>
                 </div>
@@ -426,25 +680,51 @@ const Listitem = () => {
         >
           <div className={style.desktopDesign__airline}>
             <Image
-              src="/images/logo.png"
+              src="/images/IranAir.png"
               alt="airlineLogo"
               height={56}
               width={56}
             />
-            <h2 className={style.desktopDesign__AirlineName}>ماهان</h2>
+            <h2 className={style.desktopDesign__AirlineName}>
+              {airlineIataConvertor(flightData.validatingAirlineCode).nameFa}
+            </h2>
           </div>
           <div>
             <div className={style.desktopDesign__timeContainer}>
               <div className="flex flex-col items-center">
-                <div className={style.desktopDesign__time}>17:30</div>
+                <div className={style.desktopDesign__time}>
+                  {getTime(
+                    flightData.originDestinationOptions[0].flightSegments[0]
+                      .departureDateTime
+                  )}
+                </div>
                 <div className={style.desktopDesign__cityContainer}>
-                  <div className={style.desktopDesign__cityName}>تهران</div>
-                  <div className={style.desktopDesign__cityCode}>(isr)</div>
+                  <div className={style.desktopDesign__cityName}>
+                    {
+                      iataConvertor(
+                        flightData.originDestinationOptions[0].flightSegments[0]
+                          .departureAirportLocationCode
+                      ).cityFa
+                    }
+                  </div>
+                  <div className={style.desktopDesign__cityCode}>
+                    (
+                    {
+                      iataConvertor(
+                        flightData.originDestinationOptions[0].flightSegments[0]
+                          .departureAirportLocationCode
+                      ).cityId
+                    }
+                    )
+                  </div>
                 </div>
               </div>
               <div className={style.desktopDesign__durationContainer}>
                 <div className={style.desktopDesign__duration}>
-                  3ساعت و 45 دقیقه
+                  {getPersianTime(
+                    flightData.originDestinationOptions[0].flightSegments[0]
+                      .journeyDuration
+                  )}
                 </div>
                 <div className={style.desktopDesign__durationUnderline}>
                   <div
@@ -459,10 +739,31 @@ const Listitem = () => {
                 </div>
               </div>
               <div className="flex flex-col items-center">
-                <div className={style.desktopDesign__time}>17:30</div>
+                <div className={style.desktopDesign__time}>
+                  {getTime(
+                    flightData.originDestinationOptions[0].flightSegments[0]
+                      .arrivalDateTime
+                  )}
+                </div>
                 <div className={style.desktopDesign__cityContainer}>
-                  <div className={style.desktopDesign__cityName}>تهران</div>
-                  <div className={style.desktopDesign__cityCode}>(isr)</div>
+                  <div className={style.desktopDesign__cityName}>
+                    {
+                      iataConvertor(
+                        flightData.originDestinationOptions[0].flightSegments[0]
+                          .arrivalAirportLocationCode
+                      ).cityFa
+                    }
+                  </div>
+                  <div className={style.desktopDesign__cityCode}>
+                    (
+                    {
+                      iataConvertor(
+                        flightData.originDestinationOptions[0].flightSegments[0]
+                          .arrivalAirportLocationCode
+                      ).cityId
+                    }
+                    )
+                  </div>
                 </div>
               </div>
             </div>
@@ -473,7 +774,11 @@ const Listitem = () => {
           >
             <div className={style.desktopDesign__priceText}>یک نفر</div>
             <div className="flex items-center pt-2">
-              <div className={style.desktopDesign__price}>1,370,000</div>
+              <div className={style.desktopDesign__price}>
+                {readableNumber(
+                  flightData.airItineraryPricingInfo.itinTotalFare.totalFare
+                )}
+              </div>
               <div className={style.desktopDesign__priceText}>تومان</div>
             </div>
             <div className={style.desktopDesign__selectFlight}>انتخاب بلیط</div>
@@ -495,11 +800,19 @@ const Listitem = () => {
               </div>
               <span className="px-2 pb-1">.</span>
               <div className={style.desktopDesign__flightSummeryItem}>
-                10 صندلی خالی
+                {
+                  flightData.originDestinationOptions[0].flightSegments[0]
+                    .seatsRemaining
+                }{" "}
+                صندلی خالی
               </div>
               <span className="px-2 pb-1">.</span>
               <div className={style.desktopDesign__flightSummeryItem}>
-                شماره پرواز : 2345
+                شماره پرواز :{" "}
+                {
+                  flightData.originDestinationOptions[0].flightSegments[0]
+                    .operatingAirline.flightNumber
+                }
               </div>
               <span className="px-2 pb-1">.</span>
               <div className={style.desktopDesign__flightSummeryItem}>
@@ -546,7 +859,20 @@ const Listitem = () => {
                     style.desktopDesign__flightDetailModalInformationTitle
                   }
                 >
-                  پرواز رفت تهران - استانبول
+                  پرواز رفت{" "}
+                  {
+                    iataConvertor(
+                      flightData.originDestinationOptions[0].flightSegments[0]
+                        .departureAirportLocationCode
+                    ).cityFa
+                  }{" "}
+                  -{" "}
+                  {
+                    iataConvertor(
+                      flightData.originDestinationOptions[0].flightSegments[0]
+                        .arrivalAirportLocationCode
+                    ).cityFa
+                  }
                 </div>
                 <div className="flex">
                   <div
@@ -555,12 +881,17 @@ const Listitem = () => {
                     }
                   >
                     <Image
-                      src="/images/logo.png"
+                      src="/images/IranAir.png"
                       alt="airline Logo"
                       height={40}
                       width={40}
                     />
-                    <p className="py-2">ماهان</p>
+                    <p className="py-2">
+                      {
+                        airlineIataConvertor(flightData.validatingAirlineCode)
+                          .nameFa
+                      }
+                    </p>
                   </div>
                   <div
                     className={
@@ -593,21 +924,36 @@ const Listitem = () => {
                             style.desktopDesign__flightDetailModalBoardingTime
                           }
                         >
-                          12:45
+                          {getTime(
+                            flightData.originDestinationOptions[0]
+                              .flightSegments[0].departureDateTime
+                          )}
                         </div>
                         <div
                           className={
                             style.desktopDesign__flightDetailModalBoardingCity
                           }
                         >
-                          تهران
+                          {
+                            iataConvertor(
+                              flightData.originDestinationOptions[0]
+                                .flightSegments[0].departureAirportLocationCode
+                            ).cityFa
+                          }
                         </div>
                         <div
                           className={
                             style.desktopDesign__flightDetailModalBoardingCityCode
                           }
                         >
-                          (THR)
+                          (
+                          {
+                            iataConvertor(
+                              flightData.originDestinationOptions[0]
+                                .flightSegments[0].departureAirportLocationCode
+                            ).cityId
+                          }
+                          )
                         </div>
                       </div>
                       <div className="flex ml-8">
@@ -631,7 +977,12 @@ const Listitem = () => {
                           style.desktopDesign__flightDetailModalBoardingAirport
                         }
                       >
-                        Imam Khomeini Intl
+                        {
+                          iataConvertor(
+                            flightData.originDestinationOptions[0]
+                              .flightSegments[0].departureAirportLocationCode
+                          ).name
+                        }
                       </div>
                     </div>
                     <div className="my-6 flex">
@@ -644,7 +995,12 @@ const Listitem = () => {
                           </div>
                           <div
                             className={style.desktopDesign__flightDetailsValue}
-                          ></div>
+                          >
+                            {getPersianTime(
+                              flightData.originDestinationOptions[0]
+                                .flightSegments[0].journeyDuration
+                            )}
+                          </div>
                         </div>
                         <div className="flex mb-2">
                           <div
@@ -654,7 +1010,9 @@ const Listitem = () => {
                           </div>
                           <div
                             className={style.desktopDesign__flightDetailsValue}
-                          ></div>
+                          >
+                            Airbus A320
+                          </div>
                         </div>
                         <div className="flex mb-2">
                           <div
@@ -664,7 +1022,9 @@ const Listitem = () => {
                           </div>
                           <div
                             className={style.desktopDesign__flightDetailsValue}
-                          ></div>
+                          >
+                            اکونومی
+                          </div>
                         </div>
                       </div>
                       <div>
@@ -676,7 +1036,9 @@ const Listitem = () => {
                           </div>
                           <div
                             className={style.desktopDesign__flightDetailsValue}
-                          ></div>
+                          >
+                            سیستمی
+                          </div>
                         </div>
                         <div className="flex mb-2">
                           <div
@@ -686,7 +1048,12 @@ const Listitem = () => {
                           </div>
                           <div
                             className={style.desktopDesign__flightDetailsValue}
-                          ></div>
+                          >
+                            {
+                              flightData.originDestinationOptions[0]
+                                .flightSegments[0].baggage
+                            }
+                          </div>
                         </div>
                         <div className="flex mb-2">
                           <div
@@ -696,7 +1063,9 @@ const Listitem = () => {
                           </div>
                           <div
                             className={style.desktopDesign__flightDetailsValue}
-                          ></div>
+                          >
+                            A
+                          </div>
                         </div>
                       </div>
                       <div className="flex">
@@ -707,7 +1076,10 @@ const Listitem = () => {
                         </div>
                         <div
                           className={style.desktopDesign__flightDetailsValue}
-                        ></div>
+                          style={{ color: "#ff1d23" }}
+                        >
+                          غیر قابل استرداد
+                        </div>
                       </div>
                     </div>
                     <div
@@ -719,21 +1091,36 @@ const Listitem = () => {
                             style.desktopDesign__flightDetailModalBoardingTime
                           }
                         >
-                          12:45
+                          {getTime(
+                            flightData.originDestinationOptions[0]
+                              .flightSegments[0].arrivalDateTime
+                          )}
                         </div>
                         <div
                           className={
                             style.desktopDesign__flightDetailModalBoardingCity
                           }
                         >
-                          تهران
+                          {
+                            iataConvertor(
+                              flightData.originDestinationOptions[0]
+                                .flightSegments[0].arrivalAirportLocationCode
+                            ).cityFa
+                          }
                         </div>
                         <div
                           className={
                             style.desktopDesign__flightDetailModalBoardingCityCode
                           }
                         >
-                          (THR)
+                          (
+                          {
+                            iataConvertor(
+                              flightData.originDestinationOptions[0]
+                                .flightSegments[0].arrivalAirportLocationCode
+                            ).cityId
+                          }
+                          )
                         </div>
                       </div>
                       <div className="flex ml-8">
@@ -757,7 +1144,12 @@ const Listitem = () => {
                           style.desktopDesign__flightDetailModalBoardingAirport
                         }
                       >
-                        Imam Khomeini Intl
+                        {
+                          iataConvertor(
+                            flightData.originDestinationOptions[0]
+                              .flightSegments[0].arrivalAirportLocationCode
+                          ).name
+                        }
                       </div>
                     </div>
                   </div>
@@ -780,7 +1172,11 @@ const Listitem = () => {
                     style.desktopDesign__flightDetailModalPassengerValue
                   }
                 >
-                  <div className="ml-2">۱,۳۷۰,۰۰۰</div>
+                  <div className="ml-2">
+                    {readableNumber(
+                      flightData.airItineraryPricingInfo.itinTotalFare.totalFare
+                    )}
+                  </div>
                   <div>تومان</div>
                 </div>
               </div>
@@ -799,7 +1195,11 @@ const Listitem = () => {
                     style.desktopDesign__flightDetailModalPassengerValue
                   }
                 >
-                  <div className="ml-2">۱,۳۷۰,۰۰۰</div>
+                  <div className="ml-2">
+                    {readableNumber(
+                      flightData.airItineraryPricingInfo.itinTotalFare.totalFare
+                    )}
+                  </div>
                   <div>تومان</div>
                 </div>
               </div>
@@ -818,7 +1218,11 @@ const Listitem = () => {
                     style.desktopDesign__flightDetailModalPassengerValue
                   }
                 >
-                  <div className="ml-2">۱,۳۷۰,۰۰۰</div>
+                  <div className="ml-2">
+                    {readableNumber(
+                      flightData.airItineraryPricingInfo.itinTotalFare.totalFare
+                    )}
+                  </div>
                   <div>تومان</div>
                 </div>
               </div>
@@ -835,7 +1239,11 @@ const Listitem = () => {
                     style.desktopDesign__flightDetailModalPassengerSumValue
                   }
                 >
-                  <div className="ml-2">۱,۳۷۰,۰۰۰</div>
+                  <div className="ml-2">
+                    {readableNumber(
+                      flightData.airItineraryPricingInfo.itinTotalFare.totalFare
+                    )}
+                  </div>
                   <div>تومان</div>
                 </div>
               </div>
