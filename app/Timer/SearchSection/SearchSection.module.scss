@@ -1,7 +1,0 @@
-@import '../../styles/variables.module.scss';
-@import '../../styles/mixins.module.scss';
-
-.container{
-    @include emptySection(374px, 131px);
-    background-color: rgb(44, 165, 42); 
-}
