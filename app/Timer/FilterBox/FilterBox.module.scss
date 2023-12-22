@@ -44,16 +44,6 @@
     }
 }
 
-.mobileDesign__filters{
-    width: 100%;
-    min-height: 400px;
-    background-color: white;
-    display: block;
-    @media (min-width: $breakpoint-desktop) {
-        display: none;
-    }
-}
-
 .desktopDesign__filterBox{
     display: none;
     @media (min-width: $breakpoint-desktop) {
@@ -63,24 +53,4 @@
         background-color: white;
         margin-left: 24px;
     }
-}
-
-.desktopDesign__filterBoxHeader{
-    @include flexBetween;
-    padding: 0 16px;
-    width: 100%;
-    height: 56px;
-}
-
-.desktopDesign__filterBoxHeaderTitle{
-    font-family: IRANSansBold;
-    font-size: 14px;
-    color: $greyish-brown;
-}
-
-.desktopDesign__filterBoxHeaderRemove{
-    font-family: IRANSans;
-    font-size: 13px;
-    color: $blue;
-    cursor: pointer;
 }

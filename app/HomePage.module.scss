@@ -1,4 +1,5 @@
 @import './styles/variables.module.scss';
+@import './styles/mixins.module.scss';
 
 .container{
     background-color: $white;
@@ -28,4 +29,20 @@
         margin-top: 32px;
         justify-content: center;
     }
+}
+
+.desktopDesign__timerContainer{
+    display: none;
+    @media (min-width: $breakpoint-desktop) {
+        padding-left: 24px;
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+        align-items: start;
+        height: 48px;
+        font-family: IRANSans;
+        font-size: 14px;
+        color: $greyish-brown;
+    }
+
 }

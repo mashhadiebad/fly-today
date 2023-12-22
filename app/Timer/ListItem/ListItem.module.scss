@@ -1,0 +1,648 @@
+@import '../../styles/variables.module.scss';
+@import '../../styles/mixins.module.scss';
+
+.mobileDesign__container{
+    display: block;
+    width: 100%;
+    height: 270px;
+    background-color: white;
+    padding: 13px 16px 16px 16px;
+    @media(min-width: $breakpoint-desktop){
+        display: none;
+    }
+}
+
+.mobileDesign__airline{
+    display: flex;
+    align-items: center;
+    margin-bottom: 18px;
+}
+
+.mobileDesign__AirlineName{
+    font-family: IRANSans;
+    font-size: 14px;
+    color: $greyish-brown;
+    margin-right: 16px;
+}
+
+.mobileDesign__durationContainer{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    align-self: baseline;
+}
+
+.mobileDesign__duration{
+    font-family: IRANSans;
+    font-size: 12px;
+    color: #6f6f6f;
+    margin-bottom: 3px;
+    padding: 0 6px;
+}
+
+.mobileDesign__timeContainer{
+    width: 100%;
+    @include flexBetween;
+}
+
+.mobileDesign__time{
+    font-family: IRANSansBlack;
+    font-size: 24px;
+    color: $greyish-brown;
+}
+
+.mobileDesign__durationUnderline{
+    display: flex;
+    align-items: center;
+    width: 100%;
+}
+
+.mobileDesign__durationCircle{
+    width: 12px;
+    height: 12px;
+    box-sizing: border-box;
+    border-radius: 50%;
+    border: 1px solid black; 
+}
+
+.mobileDesign__durationLine{
+    width: 100%;
+    height: 1px;
+    box-sizing: border-box;
+    border-bottom:1px solid $Gray30;
+}
+
+.mobileDesign__citiesContainer{
+    width: 100%;
+    @include flexBetween;
+}
+
+.mobileDesign__cityContainer{
+    display: flex;
+    align-items: center;
+}
+
+.mobileDesign__cityCode{
+    font-family: IRANSans;
+    font-size: 12px;
+    color: $details-gray;
+    margin-right: 7px;
+}
+
+.mobileDesign__cityName{
+    font-family: IRANSans;
+    font-size: 14px;
+    color: $greyish-brown;
+}
+
+.mobileDesign__flightSummery{
+    height: 40px;
+    width: 100%;
+    margin: 16px 0;
+    border-top: 1px solid #eee;
+    border-bottom: 1px solid #eee;
+    @include flexBetween;
+}
+
+.mobileDesign__flightSummeryItem{
+    font-family: IRANSans;
+    font-size: 12px;
+    color: $greyish-brown;
+}
+
+.mobileDesign__selectAndDetails{
+    width: 152px;
+    height: 40px;
+    @include flexCenter;
+    font-family: IRANSans;
+    font-size: 14px;
+    color: #fff;
+    background-color: $blue;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.mobileDesign__price{
+    margin-left: 8px;
+    font-family: IRANSansBlack;
+    font-size: 20px;
+    color: $blue;
+}
+
+.mobileDesign__priceText{
+    font-family: IRANSans;
+    font-size: 12px;
+    color: $details-gray;
+}
+
+.mobileDesign__flightDetailModal{
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    background-color: white;
+}
+
+.mobileDesign__flightDetailModalHeader{
+    width: 100%;
+    height: 48px;
+    @include flexBetween;
+    padding: 0 16px;
+    font-family: IRANSansBlack;
+    font-size: 16px;
+    color: $greyish-brown;
+    border-bottom: 1px solid #eee;
+}
+
+.mobileDesign__flightDetailModalMain{
+    height: calc(100% - 120px);
+    width: 100%;
+    padding: 16px;
+    overflow-y: auto;
+}
+
+.mobileDesign__flightDetailModalFooter{
+    height: 72px;
+    width: 100%;
+    box-shadow: 0 -5px 8px 0 rgba(0, 0, 0, 0.08);
+    padding: 16px;
+}
+
+.mobileDesign__flightDetailModalMainTagContainer{
+    display: flex;
+    border-bottom: 1px solid #eee;
+}
+
+.mobileDesign__flightDetailModalMainTag{
+    font-family: IRANSans;
+    height: 40px;
+    font-size: 14px;
+    color: $details-gray;
+    @include flexCenter;
+    border-top-left-radius: 4px;
+    border-top-right-radius: 4px;
+    padding: 0 12px;
+    margin-left: 8px;
+    cursor: pointer;
+}
+
+.activeTag{
+    background-color: $blue !important;
+    color: #fff !important;
+}
+
+.mobileDesign__flightDetailModalInformation{
+    padding: 24px 0 16px 0;
+}
+
+.mobileDesign__flightDetailModalInformationTitle{
+    font-family: IRANSansBlack;
+    font-size: 16px;
+    color: $greyish-brown;
+    margin-bottom: 24px;
+}
+
+.mobileDesign__flightDetailModalInformationPath{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-left: 18px;
+}
+
+.mobileDesign__flightDetailModalInformationCircle{
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    border: 1px solid $red;
+}
+
+.mobileDesign__flightDetailModalInformationDote{
+    height: 316px;
+    margin: 2px 0;
+    width: 2px;
+    box-sizing: border-box;
+    border: 2px dotted $Gray30;
+}
+
+.mobileDesign__flightDetailModalInformationAirline{
+    width: 56px;
+    height: 336px;
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    justify-content: center;
+    font-family: IRANSans;
+    font-size: 12px;
+    color: #6f6f6f;
+}
+
+.mobileDesign__flightDetailsTitle{
+    width: 72px;
+    text-align: right;
+    font-family: IRANSans;
+    font-size: 12px;
+    color: $details-gray;
+}
+
+.mobileDesign__flightDetailsValue{
+    font-family: IRANSans;
+    font-size: 12px;
+    color: $greyish-brown;
+}
+
+.mobileDesign__flightDetailModalBoarding{
+    font-size: 14px;
+}
+
+.mobileDesign__flightDetailModalBoardingTime{
+    color: $greyish-brown;
+    font-family: IRANSansBold;
+    margin-left: 8px;
+}
+
+.mobileDesign__flightDetailModalBoardingCity{
+    color: $greyish-brown;
+    font-family: IRANSans;
+    margin-left: 4px;
+}
+
+.mobileDesign__flightDetailModalBoardingCityCode{
+    color: $greyish-brown;
+}
+
+.mobileDesign__flightDetailModalBoardingDate{
+    color: $greyish-brown;
+    font-family: IRANSans;
+    margin-left: 8px;
+}
+
+.mobileDesign__flightDetailModalBoardingDateEn{
+    direction: ltr;
+    color: $greyish-brown;
+}
+
+.mobileDesign__flightDetailModalBoardingAirport{
+    color: #8d8d8d;
+    font-family: IRANSans;
+}
+
+.mobileDesign__flightDetailModalPassengers{
+    border: solid 1px #eee;
+    padding: 14px 16px;
+    height: 140px;
+    width: 100%;
+}
+
+
+.mobileDesign__flightDetailModalPassengerTitle{
+    font-family: IRANSans;
+    font-size: 14px;
+    color: $greyish-brown;
+    display: flex;
+    align-items: center;
+}
+
+.mobileDesign__flightDetailModalPassengerValue{
+    font-family: IRANSans;
+    font-size: 14px;
+    color: $greyish-brown;
+    display: flex;
+    align-items: center;
+}
+
+.mobileDesign__flightDetailModalPassenger{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 8px;
+}
+
+.mobileDesign__flightDetailModalPassengerSumTitle{
+    font-family: IRANSansBold;
+    font-size: 14px;
+    color: $greyish-brown;
+}
+
+.mobileDesign__flightDetailModalPassengerSumValue{
+    font-family: IRANSans;
+    font-size: 14px;
+    color: $blue;
+    display: flex;
+    align-items: center;
+}
+
+.desktopDesign__container{
+    display: none;
+    @media(min-width: $breakpoint-desktop){
+        display: block;
+        max-width: 894px;
+        max-height: 584px;
+        background-color: white;
+    }
+}
+
+.desktopDesign__airline{
+    display: flex;
+    align-items: center;
+    margin-bottom: 18px;
+}
+
+.desktopDesign__AirlineName{
+    font-family: IRANSans;
+    font-size: 14px;
+    color: $greyish-brown;
+    margin-right: 16px;
+}
+
+.desktopDesign__durationContainer{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    align-self: baseline;
+    margin: 0 32px;
+}
+
+.desktopDesign__duration{
+    font-family: IRANSans;
+    font-size: 12px;
+    color: #6f6f6f;
+    margin-bottom: 3px;
+    padding: 0 28px;
+}
+
+.desktopDesign__timeContainer{
+    width: 100%;
+    @include flexBetween;
+}
+
+.desktopDesign__time{
+    font-family: IRANSansBlack;
+    font-size: 24px;
+    color: $greyish-brown;
+}
+
+.desktopDesign__durationUnderline{
+    display: flex;
+    align-items: center;
+    width: 100%;
+}
+
+.desktopDesign__durationCircle{
+    width: 12px;
+    height: 12px;
+    box-sizing: border-box;
+    border-radius: 50%;
+    border: 1px solid black; 
+}
+
+.desktopDesign__durationLine{
+    width: 100%;
+    height: 1px;
+    box-sizing: border-box;
+    border-bottom:1px solid $Gray30;
+}
+
+.desktopDesign__cityContainer{
+    display: flex;
+    align-items: center;
+}
+
+.desktopDesign__cityCode{
+    font-family: IRANSans;
+    font-size: 12px;
+    color: $details-gray;
+    margin-right: 7px;
+}
+
+.desktopDesign__cityName{
+    font-family: IRANSans;
+    font-size: 14px;
+    color: $greyish-brown;
+}
+
+.desktopDesign__price{
+    margin-left: 8px;
+    font-family: IRANSansBlack;
+    font-size: 20px;
+    color: $blue;
+}
+
+.desktopDesign__priceText{
+    font-family: IRANSans;
+    font-size: 12px;
+    color: $details-gray;
+}
+
+.desktopDesign__selectFlight{
+    width: 169px;
+    height: 40px;
+    @include flexCenter;
+    font-family: IRANSans;
+    font-size: 14px;
+    color: #fff;
+    background-color: $blue;
+    border-radius: 4px;
+    margin-top: 12px;
+    cursor: pointer;
+}
+
+.desktopDesign__flightSummery{
+    height: 40px;
+    display: flex;
+    align-items: center;
+}
+
+.desktopDesign__flightSummeryItem{
+    font-family: IRANSans;
+    font-size: 12px;
+    color: $greyish-brown;
+}
+
+.desktopDesign__moreDetails{
+    display: flex;
+    align-items: center;
+    font-family: IRANSans;
+    font-size: 12px;
+    margin-left: 46px;
+    color: $pumpkin-orange;
+    cursor: pointer;
+}
+
+.desktopDesign__flightCharter{
+    margin-left: 16px;
+    background-color: #f4f4f4;
+    padding: 4px 12px;
+}
+
+.desktopDesign__flightDetailModalMain{
+    width: 100%;
+    margin-top: 28px;
+}
+
+.desktopDesign__flightDetailModalMainTagContainer{
+    display: flex;
+    border-bottom: 1px solid #eee;
+    padding-right: 16px;
+}
+
+.desktopDesign__flightDetailModalMainTag{
+    font-family: IRANSans;
+    height: 40px;
+    font-size: 14px;
+    color: $details-gray;
+    @include flexCenter;
+    border-top-left-radius: 4px;
+    border-top-right-radius: 4px;
+    padding: 0 12px;
+    margin-left: 8px;
+    cursor: pointer;
+}
+
+.desktopDesign__flightDetailModalInformation{
+    padding: 24px 16px 16px 16px;
+}
+
+.desktopDesign__flightDetailModalInformationTitle{
+    font-family: IRANSansBlack;
+    font-size: 16px;
+    color: $greyish-brown;
+    margin-bottom: 24px;
+}
+
+.desktopDesign__flightDetailModalInformationPath{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-left: 18px;
+}
+
+.desktopDesign__flightDetailModalInformationCircle{
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    border: 1px solid $red;
+}
+
+.desktopDesign__flightDetailModalInformationDote{
+    height: 136px;
+    margin: 2px 0;
+    width: 2px;
+    box-sizing: border-box;
+    border: 2px dotted $Gray30;
+}
+
+.desktopDesign__flightDetailModalInformationAirline{
+    width: 66px;
+    height: 152px;
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    justify-content: center;
+    font-family: IRANSans;
+    font-size: 12px;
+    color: #6f6f6f;
+}
+
+.desktopDesign__flightDetailsTitle{
+    width: 72px;
+    text-align: right;
+    font-family: IRANSans;
+    font-size: 12px;
+    color: $details-gray;
+}
+
+.desktopDesign__flightDetailsValue{
+    width: 168px;
+    font-family: IRANSans;
+    font-size: 12px;
+    color: $greyish-brown;
+}
+
+.desktopDesign__flightDetailModalBoarding{
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+
+}
+
+.desktopDesign__flightDetailModalBoardingTime{
+    color: $greyish-brown;
+    font-family: IRANSansBold;
+    margin-left: 8px;
+}
+
+.desktopDesign__flightDetailModalBoardingCity{
+    color: $greyish-brown;
+    font-family: IRANSans;
+    margin-left: 4px;
+}
+
+.desktopDesign__flightDetailModalBoardingCityCode{
+    color: $greyish-brown;
+}
+
+.desktopDesign__flightDetailModalBoardingDate{
+    color: $greyish-brown;
+    font-family: IRANSans;
+    margin-left: 8px;
+}
+
+.desktopDesign__flightDetailModalBoardingDateEn{
+    direction: ltr;
+    color: $greyish-brown;
+}
+
+.desktopDesign__flightDetailModalBoardingAirport{
+    color: #8d8d8d;
+    font-family: IRANSans;
+}
+
+.desktopDesign__flightDetailModalPassengers{
+    border: solid 1px #eee;
+    margin: 16px;
+    height: 48px;
+    display: flex;
+    justify-content: space-around;
+    width: calc(100% - 32px);
+}
+
+
+.desktopDesign__flightDetailModalPassengerTitle{
+    font-family: IRANSans;
+    font-size: 14px;
+    color: $greyish-brown;
+    display: flex;
+    align-items: center;
+    margin-left: 16px;
+}
+
+.desktopDesign__flightDetailModalPassengerValue{
+    font-family: IRANSans;
+    font-size: 14px;
+    color: $greyish-brown;
+    display: flex;
+    align-items: center;
+}
+
+.desktopDesign__flightDetailModalPassenger{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.desktopDesign__flightDetailModalPassengerSumTitle{
+    font-family: IRANSansBold;
+    font-size: 14px;
+    color: $greyish-brown;
+    margin-left: 16px;
+}
+
+.desktopDesign__flightDetailModalPassengerSumValue{
+    font-family: IRANSansBold;
+    font-size: 14px;
+    color: $blue;
+    display: flex;
+    align-items: center;
+}

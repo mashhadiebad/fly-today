@@ -3,6 +3,7 @@ import List from "./components/List/List";
 import ListTitle from "./components/ListTitle/ListTitle";
 import SearchSection from "./components/SearchSection/SearchSection";
 import Sort from "./components/Sort/Sort";
+import Timer from "./components/Timer/Timer";
 import style from "./HomePage.module.scss";
 
 export default function Home() {
@@ -19,6 +20,10 @@ export default function Home() {
       </div>
       <div className={style.desktopDesign}>
         <aside>
+          <div className={style.desktopDesign__timerContainer}>
+            <p>مدت زمان اعتبار نتایج</p>
+            <Timer />
+          </div>
           <FilterBox />
         </aside>
         <main style={{ width: "894px" }}>

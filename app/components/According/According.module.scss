@@ -1,0 +1,45 @@
+@import '../../styles/variables.module.scss';
+@import '../../styles/mixins.module.scss';
+
+.according__container{
+    width: 100%;
+}
+
+.according__header{
+    width: 100%;
+    @include flexBetween;
+    height: 56px;
+    padding: 0 16px;
+    border-top:1px solid #eee ;
+    cursor: pointer;
+}
+
+.according__title{
+    font-family: IRANSansBold;
+    font-size: 14px;
+    color: greyish-brown;
+}
+
+.according__content{
+    width: 100%;
+    padding: 0 16px 16px 16px;
+}
+
+.according__item{
+    display: flex;
+    align-items: center;
+    margin-top: 16px;
+    cursor: pointer;
+    input{
+        width: 18px;
+        height: 18px;
+        border-radius: 4px;
+    }
+}
+
+.according__itemTitle{
+    margin-right: 16px;
+    font-family: IRANSans;
+    font-size: 14px;
+    color: $black;
+}
