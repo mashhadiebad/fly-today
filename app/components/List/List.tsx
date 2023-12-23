@@ -1,12 +1,135 @@
 "use client";
+import { useEffect, useState } from "react";
 import data from "../../../data/flight-data.json";
 import ListItem from "../ListItem/ListItem";
 import { useAppSelector } from "@/store/store";
 
+interface flightsData {
+  passportMandatoryType: string;
+  domesticCountryCode: any;
+  isPassportMandatory: boolean;
+  isDestinationAddressMandatory: boolean;
+  isPassportIssueDateMandatory: boolean;
+  directionInd: number;
+  refundMethod: string;
+  validatingAirlineCode: string;
+  fareSourceCode: string;
+  hasFareFamilies: boolean;
+  airItineraryPricingInfo: {
+    fareType: string;
+    itinTotalFare: {
+      totalService: number;
+      totalFare: number;
+      grandTotalWithoutDiscount: number;
+      discountAmount: any;
+      totalVat: number;
+      totalTax: number;
+      totalServiceTax: number;
+      totalCommission: number;
+    };
+    ptcFareBreakdown: [
+      {
+        passengerFare: {
+          baseFare: number;
+          totalFare: number;
+          serviceTax: number;
+          taxes: any[];
+          total: number;
+          tax: number;
+          vat: number;
+          baseFareWithMarkup: number;
+          totalFareWithMarkupAndVat: number;
+          commission: number;
+          priceCitizen: number;
+        };
+        passengerTypeQuantity: {
+          passengerType: string;
+          quantity: number;
+        };
+      }
+    ];
+    fareInfoes: any[];
+  };
+  originDestinationOptions: [
+    {
+      journeyDurationPerMinute: number;
+      connectionTimePerMinute: number;
+      flightSegments: [
+        {
+          departureDateTime: string;
+          arrivalDateTime: string;
+          stopQuantity: number;
+          flightNumber: string;
+          resBookDesigCode: string;
+          journeyDuration: string;
+          journeyDurationPerMinute: number;
+          connectionTimePerMinute: number;
+          departureAirportLocationCode: string;
+          arrivalAirportLocationCode: string;
+          marketingAirlineCode: string;
+          cabinClassCode: string;
+          operatingAirline: {
+            code: string;
+            flightNumber: string;
+            equipment: string;
+            equipmentName: any;
+          };
+          seatsRemaining: number;
+          isCharter: boolean;
+          isReturn: boolean;
+          baggage: string;
+          technicalStops: any[];
+        }
+      ];
+    }
+  ];
+  featured: any;
+  bestExperienceIndex: number;
+  isCharter: boolean;
+  isSystem: boolean;
+  isInstance: boolean;
+  isOffer: boolean;
+  isSeatServiceMandatory: boolean;
+  isMealServiceMandatory: boolean;
+}
+[];
+
 const List = () => {
-  const flightsData = data.pricedItineraries;
+  const [flightsData, setFlightsData] = useState<flightsData>(
+    data.pricedItineraries
+  );
   const flightsKindFilter = useAppSelector((state) => state.filter.flightsKind);
-  console.log(flightsKindFilter);
+  const airlineFilter = useAppSelector((state) => state.filter.airline);
+
+  const handlefilter = (airlineFilter: string, flightsKindFilter: string) => {
+    const allflightList = data.pricedItineraries;
+    const filteredData = allflightList.filter((item) => {
+      let airlineCondition = true;
+      let flightKindCondition = true;
+
+      if (airlineFilter) {
+        airlineCondition = item.validatingAirlineCode === airlineFilter;
+      }
+
+      if (flightsKindFilter) {
+        if (flightsKindFilter === "isCharter") {
+          flightKindCondition = item.isCharter;
+        } else if (flightsKindFilter === "isSystem") {
+          flightKindCondition = item.isSystem;
+        }
+      }
+
+      return flightKindCondition && airlineCondition;
+    });
+
+    setTimeout(() => {
+      setFlightsData(filteredData);
+    }, 0);
+  };
+
+  useEffect(() => {
+    handlefilter(airlineFilter, flightsKindFilter);
+  }, [flightsKindFilter, airlineFilter]);
 
   return (
     <div>
