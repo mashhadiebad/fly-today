@@ -125,17 +125,17 @@ const List = () => {
       return flightKindCondition && airlineCondition;
     });
 
+    console.log(sortType);
+
     setTimeout(() => {
-      setFlightsData(filteredData);
+      handleSort(filteredData);
       dispatch(filterActions.setListLength(filteredData.length));
     }, 0);
   };
 
-  const handleSort = () => {
-    let flightList: flightsData[] = [...flightsData];
-
+  const handleSort = async (listData: flightsData[]) => {
     if (sortType === "totalFare") {
-      const sortedList = flightList.sort(
+      const sortedList: flightsData[] = await [...listData].sort(
         (a, b) =>
           a.airItineraryPricingInfo.itinTotalFare.totalFare -
           b.airItineraryPricingInfo.itinTotalFare.totalFare
@@ -144,10 +144,12 @@ const List = () => {
     }
 
     if (sortType === "journeyDuration") {
-      const sortedList = flightList.sort(
+      const sortedList: flightsData[] = await [...listData].sort(
         (a, b) =>
-          a.originDestinationOptions[0].journeyDurationPerMinute -
-          b.originDestinationOptions[0].journeyDurationPerMinute
+          a.originDestinationOptions[0].flightSegments[0]
+            .journeyDurationPerMinute -
+          b.originDestinationOptions[0].flightSegments[0]
+            .journeyDurationPerMinute
       );
       setFlightsData(sortedList);
     }
@@ -158,8 +160,8 @@ const List = () => {
   }, [flightsKindFilter, airlineFilter]);
 
   useEffect(() => {
-    handleSort();
-  }, [flightsData, sortType]);
+    handleSort(flightsData);
+  }, [sortType]);
   return (
     <div>
       {flightsData.map((item, index) => (

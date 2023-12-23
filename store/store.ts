@@ -37,7 +37,7 @@ interface sort{
 }
 
 const initialSortState:sort = {
-    sortType:'journeyDuration'
+    sortType:'totalFare'
 }
 
 const sortSlice = createSlice({
