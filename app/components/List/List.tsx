@@ -125,8 +125,6 @@ const List = () => {
       return flightKindCondition && airlineCondition;
     });
 
-    console.log(sortType);
-
     setTimeout(() => {
       handleSort(filteredData);
       dispatch(filterActions.setListLength(filteredData.length));
