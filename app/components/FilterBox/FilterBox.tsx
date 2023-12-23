@@ -6,14 +6,18 @@ import { IoMdClose } from "react-icons/io";
 import According from "../According/According";
 import { useDispatch } from "react-redux";
 import { filterActions } from "@/store/store";
+import { useAppSelector } from "@/store/store";
 
 const FilterBox = () => {
   const dispatch = useDispatch();
+  const airlineFilter = useAppSelector((state) => state.filter.airline);
+  const flightsKindFilter = useAppSelector((state) => state.filter.flightsKind);
   const [isFilterVisible, setIsFilterVisible] = useState<boolean>(false);
   const [isRemoveFilters, setIsRemoveFilters] = useState<boolean>(false);
-  const [airlineFilterValue, setAirlineFilterValue] = useState<string>("");
+  const [airlineFilterValue, setAirlineFilterValue] =
+    useState<string>(airlineFilter);
   const [flightsKindFilterValue, setFlightsKindFilterValue] =
-    useState<string>("");
+    useState<string>(flightsKindFilter);
 
   const flightsKindFilterContent = [
     { title: "پروازهای سیستمی", value: "isSystem" },
@@ -81,12 +85,14 @@ const FilterBox = () => {
               isRemoveSelected={isRemoveFilters}
               title="نوع پرواز"
               content={flightsKindFilterContent}
+              defaultValue={flightsKindFilter}
             />
             <According
               sendValue={receiveAirlineFilterValue}
               isRemoveSelected={isRemoveFilters}
               title="ایرلاین ها"
               content={airlineFilterContent}
+              defaultValue={airlineFilter}
             />
           </div>
         </div>
@@ -108,12 +114,14 @@ const FilterBox = () => {
           isRemoveSelected={isRemoveFilters}
           title="نوع پرواز"
           content={flightsKindFilterContent}
+          defaultValue={flightsKindFilter}
         />
         <According
           sendValue={receiveAirlineFilterValue}
           isRemoveSelected={isRemoveFilters}
           title="ایرلاین ها"
           content={airlineFilterContent}
+          defaultValue={airlineFilter}
         />
       </div>
     </div>

@@ -9,11 +9,18 @@ interface Props {
   content: { title: string; value: string }[];
   isRemoveSelected: boolean;
   sendValue: Function;
+  defaultValue: string;
 }
 
-const According = ({ title, content, isRemoveSelected, sendValue }: Props) => {
+const According = ({
+  title,
+  content,
+  isRemoveSelected,
+  sendValue,
+  defaultValue,
+}: Props) => {
   const [isAccordingVisible, setIsAccordingVisible] = useState<boolean>(true);
-  const [selectedValue, setSelectedValue] = useState<string>("");
+  const [selectedValue, setSelectedValue] = useState<string>(defaultValue);
   const handleCheckboxChange = (valueItem: string): void => {
     if (selectedValue === valueItem) {
       setSelectedValue("");
