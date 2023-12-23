@@ -104,7 +104,7 @@ interface Props {
   };
 }
 
-const Listitem = ({ flightData }: Props) => {
+const ListItem = ({ flightData }: Props) => {
   const [isFlightDetailsVisible, setIsFlightDetailsVisible] =
     useState<boolean>(false);
   return (
@@ -1256,4 +1256,4 @@ const Listitem = ({ flightData }: Props) => {
   );
 };
 
-export default Listitem;
+export default ListItem;

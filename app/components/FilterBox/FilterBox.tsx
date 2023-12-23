@@ -1,28 +1,54 @@
 "use client";
 import { FaFilter } from "react-icons/fa";
 import style from "./FilterBox.module.scss";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { IoMdClose } from "react-icons/io";
 import According from "../According/According";
+import { useDispatch } from "react-redux";
+import { filterActions } from "@/store/store";
 
 const FilterBox = () => {
+  const dispatch = useDispatch();
   const [isFilterVisible, setIsFilterVisible] = useState<boolean>(false);
   const [isRemoveFilters, setIsRemoveFilters] = useState<boolean>(false);
+  const [airlineFilterValue, setAirlineFilterValue] = useState<string>("");
+  const [flightsKindFilterValue, setFlightsKindFilterValue] =
+    useState<string>("");
+
   const flightsKindFilterContent = [
     { title: "پروازهای سیستمی", value: "isSystem" },
     { title: "پروازهای چارتری", value: "isCharter" },
   ];
+
   const airlineFilterContent = [
     { title: "ایران ایر", value: "IR" },
     { title: "ماهان ایر", value: "W5" },
     { title: "ترکیش", value: "TK" },
   ];
+
   const handleRemoveFilters = (): void => {
     setIsRemoveFilters(true);
     setTimeout(() => {
       setIsRemoveFilters(false);
     }, 0);
   };
+
+  const receiveFlightsKindFilterValue = (value: string): void => {
+    setFlightsKindFilterValue(value);
+  };
+
+  const receiveAirlineFilterValue = (value: string): void => {
+    setAirlineFilterValue(value);
+  };
+
+  useEffect(() => {
+    dispatch(filterActions.setAirlineFilter(airlineFilterValue));
+  }, [airlineFilterValue]);
+
+  useEffect(() => {
+    dispatch(filterActions.setFlightsKindFilter(flightsKindFilterValue));
+  }, [flightsKindFilterValue]);
+
   return (
     <div>
       <div
@@ -51,11 +77,13 @@ const FilterBox = () => {
               </div>
             </div>
             <According
+              sendValue={receiveFlightsKindFilterValue}
               isRemoveSelected={isRemoveFilters}
               title="نوع پرواز"
               content={flightsKindFilterContent}
             />
             <According
+              sendValue={receiveAirlineFilterValue}
               isRemoveSelected={isRemoveFilters}
               title="ایرلاین ها"
               content={airlineFilterContent}
@@ -76,11 +104,13 @@ const FilterBox = () => {
           </div>
         </div>
         <According
+          sendValue={receiveFlightsKindFilterValue}
           isRemoveSelected={isRemoveFilters}
           title="نوع پرواز"
           content={flightsKindFilterContent}
         />
         <According
+          sendValue={receiveAirlineFilterValue}
           isRemoveSelected={isRemoveFilters}
           title="ایرلاین ها"
           content={airlineFilterContent}

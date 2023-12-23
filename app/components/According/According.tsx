@@ -8,9 +8,10 @@ interface Props {
   title: string;
   content: { title: string; value: string }[];
   isRemoveSelected: boolean;
+  sendValue: Function;
 }
 
-const According = ({ title, content, isRemoveSelected }: Props) => {
+const According = ({ title, content, isRemoveSelected, sendValue }: Props) => {
   const [isAccordingVisible, setIsAccordingVisible] = useState<boolean>(true);
   const [selectedValue, setSelectedValue] = useState<string>("");
   const handleCheckboxChange = (valueItem: string): void => {
@@ -24,8 +25,11 @@ const According = ({ title, content, isRemoveSelected }: Props) => {
     if (isRemoveSelected) {
       setSelectedValue("");
     }
-    console.log("heloo");
   }, [isRemoveSelected]);
+
+  useEffect(() => {
+    sendValue(selectedValue);
+  }, [selectedValue]);
   return (
     <div className={style.according__container}>
       <div
