@@ -3,6 +3,8 @@ import { useEffect, useState } from "react";
 import data from "../../../data/flight-data.json";
 import ListItem from "../ListItem/ListItem";
 import { useAppSelector } from "@/store/store";
+import { useDispatch } from "react-redux";
+import { filterActions } from "@/store/store";
 
 interface flightsData {
   passportMandatoryType: string;
@@ -95,6 +97,7 @@ interface flightsData {
 [];
 
 const List = () => {
+  const dispatch = useDispatch();
   const [flightsData, setFlightsData] = useState<flightsData>(
     data.pricedItineraries
   );
@@ -124,6 +127,7 @@ const List = () => {
 
     setTimeout(() => {
       setFlightsData(filteredData);
+      dispatch(filterActions.setListLength(filteredData.length));
     }, 0);
   };
 

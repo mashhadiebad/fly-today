@@ -4,11 +4,13 @@ import { TypedUseSelectorHook, useSelector } from 'react-redux';
 interface filter{
     flightsKind:string;
     airline:string;
+    listLength:number;
 }
 
 const initialFilterState:filter = {
     flightsKind:'',
-    airline:''
+    airline:'',
+    listLength:0
 }
 
 const filterSlice  = createSlice({
@@ -20,6 +22,9 @@ const filterSlice  = createSlice({
         },
         setAirlineFilter(state, action: PayloadAction<string>){
             state.airline = action.payload
+        },
+        setListLength(state, action: PayloadAction<number>){
+            state.listLength = action.payload
         }
     }
 

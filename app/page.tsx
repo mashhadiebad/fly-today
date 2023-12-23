@@ -15,7 +15,7 @@ export default function Home() {
           <FilterBox />
           <Sort />
         </div>
-        <ListTitle flightResultsCount={23} />
+        <ListTitle />
         <List />
       </div>
       <div className={style.desktopDesign}>
@@ -28,7 +28,7 @@ export default function Home() {
         </aside>
         <main style={{ width: "894px" }}>
           <div className="flex w-100 items-end justify-between pb-4">
-            <ListTitle flightResultsCount={23} />
+            <ListTitle />
             <Sort />
           </div>
           <List />
