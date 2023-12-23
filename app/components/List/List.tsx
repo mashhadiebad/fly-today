@@ -94,15 +94,15 @@ interface flightsData {
   isSeatServiceMandatory: boolean;
   isMealServiceMandatory: boolean;
 }
-[];
 
 const List = () => {
   const dispatch = useDispatch();
-  const [flightsData, setFlightsData] = useState<flightsData>(
+  const [flightsData, setFlightsData] = useState<flightsData[]>(
     data.pricedItineraries
   );
   const flightsKindFilter = useAppSelector((state) => state.filter.flightsKind);
   const airlineFilter = useAppSelector((state) => state.filter.airline);
+  const sortType = useAppSelector((state) => state.sort.sortType);
 
   const handlefilter = (airlineFilter: string, flightsKindFilter: string) => {
     const allflightList = data.pricedItineraries;
@@ -131,10 +131,35 @@ const List = () => {
     }, 0);
   };
 
+  const handleSort = () => {
+    let flightList: flightsData[] = [...flightsData];
+
+    if (sortType === "totalFare") {
+      const sortedList = flightList.sort(
+        (a, b) =>
+          a.airItineraryPricingInfo.itinTotalFare.totalFare -
+          b.airItineraryPricingInfo.itinTotalFare.totalFare
+      );
+      setFlightsData(sortedList);
+    }
+
+    if (sortType === "journeyDuration") {
+      const sortedList = flightList.sort(
+        (a, b) =>
+          a.originDestinationOptions[0].journeyDurationPerMinute -
+          b.originDestinationOptions[0].journeyDurationPerMinute
+      );
+      setFlightsData(sortedList);
+    }
+  };
+
   useEffect(() => {
     handlefilter(airlineFilter, flightsKindFilter);
   }, [flightsKindFilter, airlineFilter]);
 
+  useEffect(() => {
+    handleSort();
+  }, [flightsData, sortType]);
   return (
     <div>
       {flightsData.map((item, index) => (

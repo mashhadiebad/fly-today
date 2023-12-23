@@ -1,15 +1,24 @@
 "use client";
 import style from "./Sort.module.scss";
-import { ChangeEvent, useState } from "react";
+import { ChangeEvent, useState, useEffect } from "react";
 import { CgSortAz } from "react-icons/cg";
+import { useDispatch } from "react-redux";
+import { sortActions } from "@/store/store";
+import { useAppSelector } from "@/store/store";
 
 const Sort = () => {
+  const dispatch = useDispatch();
+  const sortTypeName = useAppSelector((state) => state.sort.sortType);
   const [isSortVisible, setIsSortVisible] = useState<boolean>(false);
-  const [sortType, setSortType] = useState<string>("totalFare");
+  const [sortType, setSortType] = useState<string>(sortTypeName);
 
   const handleSelectChange = (event: ChangeEvent<HTMLSelectElement>) => {
     setSortType(event.target.value);
   };
+
+  useEffect(() => {
+    dispatch(sortActions.setSortType(sortType));
+  }, [sortType]);
 
   return (
     <div className="relative">
@@ -27,7 +36,7 @@ const Sort = () => {
         <div className={style.mobileDesign__sortContent}>
           <div
             className="form-control cursor-pointer"
-            onClick={() => setSortType("journeyDuration")}
+            onClick={() => setSortType("totalFare")}
           >
             <label className="label cursor-pointer">
               <span className={`label-text ${style.mobileDesign__sortContent}`}>
@@ -35,7 +44,7 @@ const Sort = () => {
               </span>
               <input
                 value="totalFare"
-                type="checkbox"
+                type="radio"
                 name="radio-10"
                 className="radio checked:bg-blue-500"
                 checked={sortType === "totalFare"}
@@ -50,7 +59,7 @@ const Sort = () => {
               <span className="label-text text-right">زمان پرواز</span>
               <input
                 value="journeyDuration"
-                type="checkbox"
+                type="radio"
                 name="radio-10"
                 className="radio checked:bg-blue-500"
                 checked={sortType === "journeyDuration"}
