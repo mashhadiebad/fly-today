@@ -197,7 +197,11 @@ const ListItem = ({ flightData }: Props) => {
           </div>
         </div>
         <div className={style.mobileDesign__flightSummery}>
-          <div className={style.mobileDesign__flightSummeryItem}>چارتر</div>
+          <div
+            className={`${style.mobileDesign__flightSummeryItem} ${style.desktopDesign__flightCharter}`}
+          >
+            {flightData.isCharter ? "چارتر" : "سیستمی"}
+          </div>
           <div className="flex items-center">
             <div className={style.mobileDesign__flightSummeryItem}>اکونومی</div>
             <span className="px-2 pb-1">.</span>
@@ -792,7 +796,7 @@ const ListItem = ({ flightData }: Props) => {
             <div
               className={`${style.desktopDesign__flightSummeryItem} ${style.desktopDesign__flightCharter}`}
             >
-              چارتر
+              {flightData.isCharter ? "چارتر" : "سیستمی"}
             </div>
             <div className="flex items-center">
               <div className={style.desktopDesign__flightSummeryItem}>
