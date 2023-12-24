@@ -10,7 +10,11 @@ interface Props {
   defaultValue: string;
 }
 
-const Dropdown = ({ content, sendValue, defaultValue }: Props) => {
+const Dropdown = ({
+  content = [{ title: "", value: "" }],
+  sendValue,
+  defaultValue,
+}: Props) => {
   const [isDropdownVisible, setIsDropdownVisible] = useState<boolean>(false);
   const [selectedValue, setSelectedValue] = useState<string>(defaultValue);
   const [selectedTitle, setSelectedTitle] = useState<string>(content[0].title);
@@ -18,9 +22,12 @@ const Dropdown = ({ content, sendValue, defaultValue }: Props) => {
   const findTitle = (
     content: { title: string; value: string }[],
     value: string
-  ) => {
+  ): string => {
     const result = content.find((item) => item.value === value);
-    return result.title;
+    if (result) {
+      return result.title;
+    }
+    return "";
   };
 
   const handleCheckboxChange = (valueItem: string, titleItem: string): void => {

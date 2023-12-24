@@ -6,7 +6,7 @@ import { useAppSelector } from "@/store/store";
 import { useDispatch } from "react-redux";
 import { filterActions } from "@/store/store";
 
-interface flightsData {
+type flightsData = {
   passportMandatoryType: string;
   domesticCountryCode: any;
   isPassportMandatory: boolean;
@@ -93,13 +93,11 @@ interface flightsData {
   isOffer: boolean;
   isSeatServiceMandatory: boolean;
   isMealServiceMandatory: boolean;
-}
+};
 
 const List = () => {
   const dispatch = useDispatch();
-  const [flightsData, setFlightsData] = useState<flightsData[]>(
-    data.pricedItineraries
-  );
+  const [flightsData, setFlightsData] = useState<any>(data.pricedItineraries);
   const flightsKindFilter = useAppSelector((state) => state.filter.flightsKind);
   const airlineFilter = useAppSelector((state) => state.filter.airline);
   const sortType = useAppSelector((state) => state.sort.sortType);
@@ -131,9 +129,9 @@ const List = () => {
     }, 0);
   };
 
-  const handleSort = async (listData: flightsData[]) => {
+  const handleSort = async (listData: any) => {
     if (sortType === "totalFare") {
-      const sortedList: flightsData[] = await [...listData].sort(
+      const sortedList: any = await [...listData].sort(
         (a, b) =>
           a.airItineraryPricingInfo.itinTotalFare.totalFare -
           b.airItineraryPricingInfo.itinTotalFare.totalFare
@@ -162,7 +160,7 @@ const List = () => {
   }, [sortType]);
   return (
     <div>
-      {flightsData.map((item, index) => (
+      {flightsData.map((item: any, index: any) => (
         <div key={index} className="mb-4">
           <ListItem flightData={item} />
         </div>
