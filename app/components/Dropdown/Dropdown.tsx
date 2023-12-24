@@ -14,6 +14,15 @@ const Dropdown = ({ content, sendValue, defaultValue }: Props) => {
   const [isDropdownVisible, setIsDropdownVisible] = useState<boolean>(false);
   const [selectedValue, setSelectedValue] = useState<string>(defaultValue);
   const [selectedTitle, setSelectedTitle] = useState<string>(content[0].title);
+
+  const findTitle = (
+    content: { title: string; value: string }[],
+    value: string
+  ) => {
+    const result = content.find((item) => item.value === value);
+    return result.title;
+  };
+
   const handleCheckboxChange = (valueItem: string, titleItem: string): void => {
     setSelectedValue(valueItem);
     setSelectedTitle(titleItem);
@@ -25,6 +34,12 @@ const Dropdown = ({ content, sendValue, defaultValue }: Props) => {
       setIsDropdownVisible(false);
     }, 200);
   }, [selectedValue]);
+
+  useEffect(() => {
+    setSelectedValue(defaultValue);
+    const defaultTitle = findTitle(content, defaultValue);
+    setSelectedTitle(defaultTitle);
+  }, [defaultValue]);
   return (
     <div className={style.dropdown__container}>
       <div
@@ -50,7 +65,7 @@ const Dropdown = ({ content, sendValue, defaultValue }: Props) => {
               <input
                 type="checkbox"
                 checked={selectedValue === item.value}
-                className="checkbox"
+                className="checkbox checkbox-primary"
               />
               <div className={style.dropdown__itemTitle}>{item.title}</div>
             </div>

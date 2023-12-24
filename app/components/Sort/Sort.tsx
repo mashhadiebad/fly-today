@@ -55,7 +55,7 @@ const Sort = () => {
                 <input
                   value="totalFare"
                   type="checkbox"
-                  className="checkbox checkbox-info w-4 h-4"
+                  className="checkbox checkbox-primary w-4 h-4"
                   checked={sortType === "totalFare"}
                 />
                 <span
@@ -78,7 +78,7 @@ const Sort = () => {
                 <input
                   value="journeyDuration"
                   type="checkbox"
-                  className="checkbox checkbox-info w-4 h-4"
+                  className="checkbox checkbox-primary w-4 h-4"
                   checked={sortType === "journeyDuration"}
                 />
                 <span

@@ -59,7 +59,7 @@ const According = ({
               <input
                 type="checkbox"
                 checked={selectedValue === item.value}
-                className="checkbox"
+                className="checkbox checkbox-primary"
               />
               <div className={style.according__itemTitle}>{item.title}</div>
             </div>
