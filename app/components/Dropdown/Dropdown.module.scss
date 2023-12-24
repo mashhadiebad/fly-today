@@ -1,3 +1,54 @@
 @import '../../styles/variables.module.scss';
 @import '../../styles/mixins.module.scss';
 
+.dropdown__container{
+    width: 155px;
+    position: relative;
+}
+
+.dropdown__header{
+    width: 100%;
+    @include flexBetween;
+    height: 40px;
+    padding: 0 16px;
+    border-radius: 4px;
+    background-color: white;
+    border:1px solid #eee ;
+    cursor: pointer;
+}
+
+.dropdown__title{
+    font-family: IRANSans;
+    font-size: 14px;
+    color: $greyish-brown;
+}
+
+.dropdown__content{
+    position: absolute;
+    width: 100%;
+    top: 48px;
+    left: 0;
+    border-radius: 4px;
+    background-color: white;
+    border:1px solid #eee ;
+    padding: 0 16px 16px 16px;
+}
+
+.dropdown__item{
+    display: flex;
+    align-items: center;
+    margin-top: 16px;
+    cursor: pointer;
+    input{
+        width: 18px;
+        height: 18px;
+        border-radius: 4px;
+    }
+}
+
+.dropdown__itemTitle{
+    margin-right: 16px;
+    font-family: IRANSans;
+    font-size: 14px;
+    color: $black;
+}
